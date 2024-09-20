@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automat 777</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Automat 777</h1>
+    <div id="coins">Coiny: 100</div>
+    <div id="slot">- - -</div>
+    <div class="stake-buttons">
+        <button onclick="setStake(10)">Gra o 10 coin</button>
+        <button onclick="setStake(50)">Gra o 50 coin</button>
+        <button onclick="setStake(70)">Gra o 70 coin</button>
+    </div>
+    <button id="spinButton" onclick="spin()" disabled>Obróć!</button>
+    <div id="result"></div>
+
+    <div>
+        <h2>Użyj kodu</h2>
+        <input type="text" id="codeInput" placeholder="Wpisz kod">
+        <button id="codeButton" onclick="applyCode()">Użyj kodu</button>
+        <div id="codeResult" style="margin-top: 10px; font-size: 20px;"></div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
