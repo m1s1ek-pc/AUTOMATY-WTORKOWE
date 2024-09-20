@@ -1,0 +1,56 @@
+body {
+    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 50px;
+}
+h1 {
+    font-size: 48px;
+    color: #ff5733;
+    text-shadow: 2px 2px 5px #ccc;
+}
+#slot {
+    font-size: 80px;
+    margin: 20px 0;
+    background-color: #fff;
+    border: 3px solid #ff5733;
+    padding: 30px;
+    border-radius: 15px;
+    display: inline-block;
+}
+#result {
+    font-size: 32px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #333;
+}
+button {
+    padding: 15px 30px;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff5733;
+    color: white;
+    transition: background-color 0.3s;
+    margin: 10px;
+}
+button:hover {
+    background-color: #e04e2b;
+}
+#coins {
+    font-size: 28px;
+    margin-top: 20px;
+    color: #007bff;
+}
+.stake-buttons {
+    margin: 30px 0;
+}
+#codeInput {
+    margin-top: 20px;
+    font-size: 24px;
+    padding: 10px;
+}
+#codeButton {
+    margin-top: 10px;
+}
