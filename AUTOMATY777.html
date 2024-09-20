@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automat 777</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 48px;
+            color: #ff5733;
+            text-shadow: 2px 2px 5px #ccc;
+        }
+        #slot {
+            font-size: 80px;
+            margin: 20px 0;
+            background-color: #fff;
+            border: 3px solid #ff5733;
+            padding: 30px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        #result {
+            font-size: 32px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 24px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff5733;
+            color: white;
+            transition: background-color 0.3s;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #e04e2b;
+        }
+        #coins {
+            font-size: 28px;
+            margin-top: 20px;
+            color: #007bff;
+        }
+        .stake-buttons {
+            margin: 30px 0;
+        }
+        #codeInput {
+            margin-top: 20px;
+            font-size: 24px;
+            padding: 10px;
+        }
+        #codeButton {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Automat 777</h1>
+    <div id="coins">Coiny: 100</div>
+    <div id="slot">- - -</div>
+    <div class="stake-buttons">
+        <button onclick="setStake(10)">Gra o 10 coin</button>
+        <button onclick="setStake(50)">Gra o 50 coin</button>
+        <button onclick="setStake(70)">Gra o 70 coin</button>
+    </div>
+    <button id="spinButton" onclick="spin()" disabled>Obróć!</button>
+    <div id="result"></div>
+
+    <div>
+        <h2>Użyj kodu</h2>
+        <input type="text" id="codeInput" placeholder="Wpisz kod">
+        <button id="codeButton" onclick="applyCode()">Użyj kodu</button>
+        <div id="codeResult" style="margin-top: 10px; font-size: 20px;"></div>
+    </div>
+
+    <script>
+        let coins = 100;
+        let stake = 0;
+        let codeUsed = false; // Flaga do śledzenia użycia kodu
+
+        function setStake(amount) {
+            if (amount <= coins) {
+                stake = amount;
+                document.getElementById('spinButton').disabled = false;
+                document.getElementById('result').textContent = `Stawka ustawiona na ${stake} coin`;
+            } else {
+                alert("Nie masz wystarczająco coinów!");
+            }
+        }
+
+        function spin() {
+            if (stake === 0) return;
+
+            coins -= stake; // Odejmij stawkę od monet
+            document.getElementById('coins').textContent = `Coiny: ${coins}`;
+
+            const slotDisplay = document.getElementById('slot');
+            const resultText = document.getElementById('result');
+            const randomNumber = () => Math.floor(Math.random() * 9) + 1;
+
+            let interval;
+            // Animacja losowania
+            interval = setInterval(() => {
+                slotDisplay.textContent = `${randomNumber()} ${randomNumber()} ${randomNumber()}`;
+            }, 100);
+
+            // Po 2 sekundach zatrzymaj animację i pokaż wyniki
+            setTimeout(() => {
+                clearInterval(interval);
+                const slot1 = randomNumber();
+                const slot2 = randomNumber();
+                const slot3 = randomNumber();
+                const finalDisplay = `${slot1} ${slot2} ${slot3}`;
+                slotDisplay.textContent = finalDisplay;
+
+                let winMultiplier = calculateWin([slot1, slot2, slot3]);
+                updateCoins(winMultiplier);
+            }, 2000); // Czas animacji: 2 sekundy
+        }
+
+        function calculateWin(numbers) {
+            const [slot1, slot2, slot3] = numbers;
+            let winMultiplier = 0;
+
+            if (slot1 === 7 && slot2 === 7 && slot3 === 7) {
+                winMultiplier = 1000;
+                document.getElementById('result').textContent = "777 - Jackpot!";
+            } else if (slot1 === 9 && slot2 === 1 && slot3 === 9) {
+                winMultiplier = 100;
+                document.getElementById('result').textContent = "919 - BIG WIN!";
+            } else if (slot1 === 1 && slot2 === 1 && slot3 === 1) {
+                winMultiplier = 10;
+                document.getElementById('result').textContent = "111 - WIN!";
+            } else if (slot1 === 0 && slot2 === 0 && slot3 === 1) {
+                winMultiplier = 5;
+                document.getElementById('result').textContent = "001 - AGENT WIN!";
+            } else if (slot1 === 6 && slot2 === 6 && slot3 === 6) {
+                winMultiplier = 50;
+                document.getElementById('result').textContent = "666 - Super WIN!";
+            } else if (slot1 === 5 && slot2 === 5 && slot3 === 5) {
+                winMultiplier = 20;
+                document.getElementById('result').textContent = "555 - Great WIN!";
+            } else if (slot1 === 3 && slot2 === 3 && slot3 === 3) {
+                winMultiplier = 5;
+                document.getElementById('result').textContent = "333 - Nice WIN!";
+            } else {
+                document.getElementById('result').textContent = "Spróbuj ponownie!";
+            }
+
+            return winMultiplier;
+        }
+
+        function updateCoins(winMultiplier) {
+            coins += stake * winMultiplier;
+            document.getElementById('coins').textContent = `Coiny: ${coins}`;
+            stake = 0; // Resetuj stawkę
+            document.getElementById('spinButton').disabled = true;
+        }
+
+        function applyCode() {
+            const codeInput = document.getElementById('codeInput').value;
+            const codeResult = document.getElementById('codeResult');
+
+            if (codeInput === "FREE100" && !codeUsed) {
+                coins += 100;
+                codeUsed = true; // Oznacz kod jako użyty
+                codeResult.textContent = "Kod użyty! Otrzymujesz 100 coinów!";
+                document.getElementById('coins').textContent = `Coiny: ${coins}`;
+            } else if (codeUsed) {
+                codeResult.textContent = "Kod został już użyty!";
+            } else {
+                codeResult.textContent = "Nieprawidłowy kod!";
+            }
+
+            document.getElementById('codeInput').value = ""; // Wyczyść pole po użyciu
+        }
+    </script>
+
+</body>
+</html>
