@@ -22,7 +22,7 @@ function spin() {
 
     const slotDisplay = document.getElementById('slot');
     const randomNumber = () => {
-        const symbols = [1, 2, 3, 4, 5, 6, 7, '🌹']; // Usunięte liczby 8 i 9, dodana róża
+        const symbols = [1, 2, 3, 4, 5, 6, 7, '🌹', '💲']; // Róża i dolar w losowaniu
         return symbols[Math.floor(Math.random() * symbols.length)];
     };
 
@@ -53,14 +53,25 @@ function calculateWin(numbers) {
 
     // Specjalne wygrane z różami
     if (slot1 === '🌹' && slot2 === '🌹' && slot3 === '🌹') {
-        multiplier = 30; // 3 róże mnożą x30
-        document.getElementById('result').textContent = "3x 🌹 - Super Róża! x30";
+        multiplier = 10; // 3 róże mnożą x10 (zmniejszona szansa)
+        document.getElementById('result').textContent = "3x 🌹 - Super Róża! x10";
     } else if ((slot1 === '🌹' && slot2 === '🌹') || (slot2 === '🌹' && slot3 === '🌹') || (slot1 === '🌹' && slot3 === '🌹')) {
-        multiplier = 4; // 2 róże mnożą x4
+        multiplier = 4; // 2 róże mnożą x4 (zmniejszona szansa)
         document.getElementById('result').textContent = "2x 🌹 - Duża Wygrana! x4";
     } else if (slot1 === '🌹' || slot2 === '🌹' || slot3 === '🌹') {
-        multiplier = 2; // 1 róża mnoży x2
+        multiplier = 2; // 1 róża mnoży x2 (mniejsza szansa)
         document.getElementById('result').textContent = "1x 🌹 - Mała Wygrana! x2";
+    }
+    // Specjalne wygrane z dolarami
+    else if (slot1 === '💲' && slot2 === '💲' && slot3 === '💲') {
+        multiplier = 5; // 3 dolary mnożą x5 (zmniejszona szansa)
+        document.getElementById('result').textContent = "3x 💲 - Super Dolary! x5";
+    } else if ((slot1 === '💲' && slot2 === '💲') || (slot2 === '💲' && slot3 === '💲') || (slot1 === '💲' && slot3 === '💲')) {
+        multiplier = 3; // 2 dolary mnożą x3 (zmniejszona szansa)
+        document.getElementById('result').textContent = "2x 💲 - Duża Wygrana! x3";
+    } else if (slot1 === '💲' || slot2 === '💲' || slot3 === '💲') {
+        multiplier = 2; // 1 dolar mnoży x2 (mniejsza szansa)
+        document.getElementById('result').textContent = "1x 💲 - Mała Wygrana! x2";
     }
     // Nagrody za inne wygrane kombinacje z mnożnikami
     else if (slot1 === 7 && slot2 === 7 && slot3 === 7) {
