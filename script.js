@@ -128,4 +128,3 @@ function applyCode() {
         codeResult.textContent = "Nieprawidłowy kod!";
     }
 }
-
